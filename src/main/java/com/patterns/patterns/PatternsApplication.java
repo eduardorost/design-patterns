@@ -8,6 +8,10 @@ import com.patterns.patterns.bridge.services.BlueCircleService;
 import com.patterns.patterns.bridge.services.RedCircleService;
 import com.patterns.patterns.bridge.model.Circle;
 import com.patterns.patterns.bridge.model.Shape;
+import com.patterns.patterns.builder.CamaraBuilder;
+import com.patterns.patterns.builder.CamaraMaker;
+import com.patterns.patterns.builder.OpticalZoomCamaraBuilder;
+import com.patterns.patterns.builder.models.Camara;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +60,12 @@ public class PatternsApplication implements ApplicationRunner {
 		Shape greenCircle = new Circle(100,100, 10, new BlueCircleService());
 		redCircle.draw();
 		greenCircle.draw();
+
+		logger.info("Adapter");
+		CamaraMaker cm = new CamaraMaker();
+		CamaraBuilder opticalZoomCamaraBuilder = new OpticalZoomCamaraBuilder();
+		cm.setCamaraBuilder(opticalZoomCamaraBuilder);
+		cm.constructCamara();
+		logger.info(String.valueOf(cm.getCamara()));
 	}
 }
